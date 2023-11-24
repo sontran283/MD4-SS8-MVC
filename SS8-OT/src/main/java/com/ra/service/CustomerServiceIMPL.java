@@ -11,12 +11,12 @@ public class CustomerServiceIMPL implements ICustomerService {
     private static List<Customer> customerList = new ArrayList<>();
 
     static {
-        customerList.add( new Customer(1, "John", "john@rikkei.academy", "Hanoi"));
-        customerList.add( new Customer(2, "Bill", "bill@rikkei.academy", "Danang"));
-        customerList.add( new Customer(3, "Alex", "alex@rikkei.academy", "Saigon"));
-        customerList.add( new Customer(4, "Adam", "adam@rikkei.academy", "Beijin"));
-        customerList.add( new Customer(5, "Sophia", "sophia@rikkei.academy", "Miami"));
-        customerList.add( new Customer(6, "Rose", "rose@rikkei.academy", "Newyork"));
+        customerList.add(new Customer(1, "John", "john@rikkei.academy", "Hanoi"));
+        customerList.add(new Customer(2, "Bill", "bill@rikkei.academy", "Danang"));
+        customerList.add(new Customer(3, "Alex", "alex@rikkei.academy", "Saigon"));
+        customerList.add(new Customer(4, "Adam", "adam@rikkei.academy", "Beijin"));
+        customerList.add(new Customer(5, "Sophia", "sophia@rikkei.academy", "Miami"));
+        customerList.add(new Customer(6, "Rose", "rose@rikkei.academy", "Newyork"));
     }
 
     @Override

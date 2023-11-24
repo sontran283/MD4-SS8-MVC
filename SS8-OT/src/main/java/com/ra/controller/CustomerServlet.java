@@ -36,7 +36,7 @@ public class CustomerServlet extends HttpServlet {
                 formSearchCustomer(req, resp);
                 break;
             default:
-                showListCustomer(req, resp);
+                formshowListCustomer(req, resp);
                 break;
         }
     }
@@ -52,7 +52,7 @@ public class CustomerServlet extends HttpServlet {
     private void formDeleteCustomer(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int idDelete = Integer.parseInt(req.getParameter("id"));
         customerService.remove(idDelete);
-        showListCustomer(req, resp);
+        formshowListCustomer(req, resp);
     }
 
     private void formEditCustomer(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -67,7 +67,7 @@ public class CustomerServlet extends HttpServlet {
         req.getRequestDispatcher("customer/create.jsp").forward(req, resp);
     }
 
-    public void showListCustomer(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void formshowListCustomer(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Customer> customerList = customerService.finAll();
         req.setAttribute("customers", customerList);
         req.getRequestDispatcher("customer/list.jsp").forward(req, resp);
@@ -100,7 +100,7 @@ public class CustomerServlet extends HttpServlet {
         customerEdit.setAddress(address);
 
         customerService.save(customerEdit);
-        showListCustomer(req, resp);
+        formshowListCustomer(req, resp);
     }
 
     private void actionCreateCustomer(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -111,6 +111,6 @@ public class CustomerServlet extends HttpServlet {
 
         Customer customer = new Customer(id, name, email, address);
         customerService.save(customer);
-        showListCustomer(req, resp);
+        formshowListCustomer(req, resp);
     }
 }
