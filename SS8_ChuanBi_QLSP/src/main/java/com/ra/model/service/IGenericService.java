@@ -1,8 +1,8 @@
-package com.ra.model.dao;
+package com.ra.model.service;
 
 import java.util.List;
 
-public interface IGenericDAO<T, ID> {
+public interface IGenericService <T,ID>{
     List<T> findAll();
 
     boolean saveOrUpdate(T t, ID id);

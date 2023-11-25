@@ -1,13 +1,14 @@
 package com.ra.model.service;
 
+import com.ra.model.dao.CategoryDAO;
 import com.ra.model.dao.CategoryDAOImpl;
-import com.ra.model.dao.CategoryDao;
+
 import com.ra.model.entity.Category;
 
 import java.util.List;
 
 public class CategoryServiceImpl implements CategoryService {
-    private final CategoryDao categoryDao = new CategoryDAOImpl();
+    private final CategoryDAO categoryDao = new CategoryDAOImpl();
 
     @Override
     public List<Category> findAll() {
@@ -16,7 +17,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public boolean saveOrUpdate(Category category, Integer id) {
-        return categoryDao.saveOrUpdate(category, id);
+        return categoryDao.saveOrUpDate(category, id);
     }
 
     @Override

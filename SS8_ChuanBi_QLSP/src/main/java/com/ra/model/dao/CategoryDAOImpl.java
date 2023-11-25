@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryDAOImpl implements CategoryDao {
+public class CategoryDAOImpl implements CategoryDAO {
     @Override
     public List<Category> findAll() {
         Connection connection = null;
@@ -40,36 +40,8 @@ public class CategoryDAOImpl implements CategoryDao {
     }
 
     @Override
-    public boolean saveOrUpdate(Category category, Integer id) {
-        Connection connection = null;
-        try {
-            connection = ConnectionDB.openConnection();
-            if (id == null) {
-                String sql = "INSERT INTO category (name,status) VALUES(?,?)";
-                PreparedStatement statement = connection.prepareStatement(sql);
-                statement.setString(1, category.getCategoryName());
-                statement.setBoolean(2, category.getCategoryStatus());
-                int check = statement.executeUpdate();
-                if (check > 0) {
-                    return true;
-                }
-            } else {
-                String sqlUpdate = "UPDATE category SET name = ? ,status = ? WHERE id =  ?";
-                PreparedStatement statement = connection.prepareStatement(sqlUpdate);
-                statement.setString(1, category.getCategoryName());
-                statement.setBoolean(2, category.getCategoryStatus());
-                statement.setInt(3, id);
-                int check = statement.executeUpdate();
-                if (check > 0) {
-                    return true;
-                }
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            ConnectionDB.closeConnection(connection);
-        }
-        return false;
+    public List<Category> findByName(String Name) {
+        return null;
     }
 
     @Override
@@ -81,6 +53,39 @@ public class CategoryDAOImpl implements CategoryDao {
             }
         }
         return null;
+    }
+
+    @Override
+    public boolean saveOrUpDate(Category category, Integer id) {
+        Connection connection = null;
+        try {
+            connection = ConnectionDB.openConnection();
+            if (id == null) {
+                String sql = "INSERT INTO category(name,status) VALUES (?,?)";
+                PreparedStatement pstm = connection.prepareStatement(sql);
+                pstm.setString(1, category.getCategoryName());
+                pstm.setBoolean(2, category.getCategoryStatus());
+                int check = pstm.executeUpdate();
+                if (check > 0) {
+                    return true;
+                }
+            } else {
+                String sql = "UPDATE category SET name =?, status =? WHERE (id = ?)";
+                PreparedStatement pstm = connection.prepareStatement(sql);
+                pstm.setString(1, category.getCategoryName());
+                pstm.setBoolean(2, category.getCategoryStatus());
+                pstm.setInt(3, id);
+                int check = pstm.executeUpdate();
+                if (check > 0) {
+                    return true;
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            ConnectionDB.closeConnection(connection);
+        }
+        return false;
     }
 
     @Override
@@ -102,10 +107,5 @@ public class CategoryDAOImpl implements CategoryDao {
     @Override
     public int getNewId() {
         return 0;
-    }
-
-    @Override
-    public List<Category> finByName(String name) {
-        return null;
     }
 }

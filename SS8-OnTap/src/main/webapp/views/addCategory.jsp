@@ -28,9 +28,9 @@
                 </div>
                 <div class="form-group">
                     <label for="Active">Status </label>
-                    <input type="radio" id="Active" name="fav_language" checked value="1">
+                    <input type="radio" id="Active" name="categoryStatus" checked value="1">
                     <label for="Active">Active</label>
-                    <input type="radio" id="IsActive" name="fav_language" value="0">
+                    <input type="radio" id="IsActive" name="categoryStatus" value="0">
                     <label for="IsActive">InActive</label><br>
                 </div>
                 <button type="submit" class="btn btn-primary">Add</button>

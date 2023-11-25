@@ -5,13 +5,13 @@ import java.util.List;
 public interface IGenericDAO<T, ID> {
     List<T> findAll();
 
-    boolean saveOrUpdate(T t, ID id);
+    List<T> findByName(String Name);
 
     T findById(ID id);
+
+    boolean saveOrUpDate(T t, ID id);
 
     void delete(ID id);
 
     int getNewId();
-
-    List<T> finByName(String name);
 }
