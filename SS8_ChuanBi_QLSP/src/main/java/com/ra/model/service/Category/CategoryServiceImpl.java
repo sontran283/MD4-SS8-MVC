@@ -1,7 +1,7 @@
-package com.ra.model.service;
+package com.ra.model.service.Category;
 
-import com.ra.model.dao.CategoryDAO;
-import com.ra.model.dao.CategoryDAOImpl;
+import com.ra.model.dao.Category.CategoryDAO;
+import com.ra.model.dao.Category.CategoryDAOImpl;
 
 import com.ra.model.entity.Category;
 

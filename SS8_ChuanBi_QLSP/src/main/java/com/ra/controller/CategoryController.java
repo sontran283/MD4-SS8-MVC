@@ -1,8 +1,8 @@
 package com.ra.controller;
 
 import com.ra.model.entity.Category;
-import com.ra.model.service.CategoryService;
-import com.ra.model.service.CategoryServiceImpl;
+import com.ra.model.service.Category.CategoryService;
+import com.ra.model.service.Category.CategoryServiceImpl;
 
 import javax.servlet.*;
 import javax.servlet.http.*;

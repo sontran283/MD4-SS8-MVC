@@ -9,5 +9,6 @@
 </h1>
 <br/>
 <a href="danh_muc">Click</a>
+<a href="product">product</a>
 </body>
 </html>

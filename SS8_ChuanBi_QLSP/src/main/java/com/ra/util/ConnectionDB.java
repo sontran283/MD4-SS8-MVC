@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class ConnectionDB {
     // ConnectionDB__kết nối CSDL
-    private static final String URL = "jdbc:mysql://localhost:3306/test_ss08";
+    private static final String URL = "jdbc:mysql://localhost:3306/session08";
     private static final String USER = "root";
     private static final String PASSWORD = "11111111";
 

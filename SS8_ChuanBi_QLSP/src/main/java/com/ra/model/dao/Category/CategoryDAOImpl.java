@@ -1,4 +1,4 @@
-package com.ra.model.dao;
+package com.ra.model.dao.Category;
 
 import com.ra.model.entity.Category;
 import com.ra.util.ConnectionDB;
@@ -46,13 +46,32 @@ public class CategoryDAOImpl implements CategoryDAO {
 
     @Override
     public Category findById(Integer integer) {
-        List<Category> categories = findAll();
-        for (Category category : categories) {
-            if (category.getCategoryId() == integer) {
-                return category;
+        Connection c = null;
+        Category category = null;
+        try {
+            c = ConnectionDB.openConnection();
+            c.setAutoCommit(false);
+            PreparedStatement ps = c.prepareStatement("SELECT * FROM category WHERE id = ?");
+            ps.setInt(1, integer);
+            ResultSet resultSet = ps.executeQuery();
+            if (resultSet.next()) {
+                category = new Category(
+                        resultSet.getInt("id"),
+                        resultSet.getString("name"),
+                        resultSet.getBoolean("status"));
             }
+            c.commit();
+        } catch (SQLException e) {
+            try {
+                c.rollback();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+            throw new RuntimeException(e);
+        } finally {
+            ConnectionDB.closeConnection(c);
         }
-        return null;
+        return category;
     }
 
     @Override
