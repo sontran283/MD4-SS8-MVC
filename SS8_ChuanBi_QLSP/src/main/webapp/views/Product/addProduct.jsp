@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>Title</title>
@@ -19,18 +20,21 @@
 <h1 class="text-center text-danger">Thêm mới danh muc </h1>
 <form action="<%=request.getContextPath()%>/product" method="POST">
     <div class="form-group">
-        <label for="categoryName">Ten danh muc</label>
-        <input type="text" class="form-control" id="categoryName" name="categoryName">
+        <label for="name">name: </label>
+        <input type="text" class="form-control" id="name" name="name">
     </div>
     <div class="form-group">
-        <label for="categoryName">Ten danh muc</label>
-        <input type="text" class="form-control" id="categoryName" name="categoryName">
+        <label for="price">price: </label>
+        <input type="text" class="form-control" id="price" name="price">
     </div>
     <div class="form-group">
-        <label for="categoryName">Ten danh muc</label>
-        <input type="text" class="form-control" id="categoryName" name="categoryName">
+        <label for="categoryId">Danh mục: </label>
+        <select class="form-control" id="categoryId" name="categoryId">
+            <c:forEach var="item" items="${list_category}">
+                <option value="${item.categoryId}">${item.categoryName}</option>
+            </c:forEach>
+        </select>
     </div>
-
     <button type="submit" class="btn btn-primary">Add</button>
 </form>
 </body>

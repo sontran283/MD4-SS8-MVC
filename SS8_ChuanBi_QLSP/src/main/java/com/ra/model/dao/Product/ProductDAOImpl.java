@@ -51,7 +51,7 @@ public class ProductDAOImpl implements ProductDAO {
         connection = ConnectionDB.openConnection();
         Product product = new Product();
         try {
-            CallableStatement callableStatement = connection.prepareCall("{CALL FINDBYID_PRODUCT(?)");
+            CallableStatement callableStatement = connection.prepareCall("{CALL FINDBYID_PRODUCT(?)}");
             callableStatement.setInt(1, id);
             ResultSet resultSet = callableStatement.executeQuery();
             while (resultSet.next()) {
@@ -67,7 +67,7 @@ public class ProductDAOImpl implements ProductDAO {
         } finally {
             ConnectionDB.closeConnection(connection);
         }
-        return null;
+        return product;
     }
 
     @Override
@@ -77,17 +77,21 @@ public class ProductDAOImpl implements ProductDAO {
         boolean check = false;
         try {
             connection.setAutoCommit(false);
-            CallableStatement callableStatement = connection.prepareCall("{CALL ADD_PRODUCT(?,?,?)}");
-            callableStatement.setString(1, product.getName());
-            callableStatement.setFloat(2, product.getPrice());
-            callableStatement.setInt(3, product.getCategory().getCategoryId());
+            CallableStatement callableStatement;
+            if (id == null) {
+                callableStatement = connection.prepareCall("{CALL ADD_PRODUCT(?,?,?)}");
+                callableStatement.setString(1, product.getName());
+                callableStatement.setFloat(2, product.getPrice());
+                callableStatement.setInt(3, product.getCategory().getCategoryId());
+            } else {
+                callableStatement = connection.prepareCall("{CALL UPDATE_PRODUCT(?,?,?,?)}");
+                callableStatement.setInt(1, id);
+                callableStatement.setString(2, product.getName());
+                callableStatement.setFloat(3, product.getPrice());
+                callableStatement.setInt(4, product.getCategory().getCategoryId());
+            }
             int check1 = callableStatement.executeUpdate();
-
-            CallableStatement callableStatement1 = connection.prepareCall("{CALL UPDATE_PRODUCT(?,?,?)}");
-            callableStatement1.setInt(1, product.getCategory().getCategoryId());
-            int check2 = callableStatement1.executeUpdate();
-
-            if (check1 > 0 && check2 > 0) {
+            if (check1 > 0) {
                 check = true;
                 connection.commit();
             }
@@ -101,15 +105,16 @@ public class ProductDAOImpl implements ProductDAO {
         } finally {
             ConnectionDB.closeConnection(connection);
         }
-        return false;
+        return check;
     }
+
 
     @Override
     public void delete(Integer integer) {
         Connection connection = null;
         connection = ConnectionDB.openConnection();
         try {
-            CallableStatement callableStatement = connection.prepareCall("{CALL DELETE_PRODUCT}");
+            CallableStatement callableStatement = connection.prepareCall("{CALL DELETE_PRODUCT (?)}");
             callableStatement.setInt(1, integer);
             callableStatement.executeUpdate();
         } catch (SQLException e) {

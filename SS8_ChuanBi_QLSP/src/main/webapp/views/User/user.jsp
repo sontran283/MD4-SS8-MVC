@@ -68,26 +68,50 @@
     td a:hover {
         background-color: #207cca;
     }
+
+    button {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+
+    button a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    button:hover {
+        background-color: #45a049;
+    }
 </style>
 <body>
-<h2>Product</h2>
+<h2>User</h2>
 <p>
-    <a href="user?action=add">Thêm mới người dùng</a>
+    <button><a href="user?action=add">Thêm mới người dùng</a></button>
+    <button><a href="/index.jsp">Back Home</a></button>
 </p>
 <table border="1" cellspacing="0">
     <tr>
         <td>ID</td>
         <td>Name</td>
-        <td>Price</td>
-        <td>Category Name</td>
+        <td>Email</td>
+        <td>Country</td>
         <td colspan="2">Action</td>
     </tr>
-    <c:forEach items='${list_product}' var="item">
+    <c:forEach items='${list_user}' var="item">
         <tr>
             <td>${item.id}</td>
             <td>${item.name}</td>
-            <td>${item.price}</td>
-            <td>${item.category.categoryName}</td>
+            <td>${item.email}</td>
+            <td>${item.country}</td>
             <td><a href="/user?action=edit&id=${item.id}">Edit</a></td>
             <td><a href="/user?action=delete&id=${item.id}" onclick="return confirm('Are you sure?')">Delete</a>
             </td>

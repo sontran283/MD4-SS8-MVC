@@ -19,16 +19,17 @@
 <h1 class="text-center text-danger">Sửa danh muc </h1>
 <form action="<%=request.getContextPath()%>/user" method="POST">
     <div class="form-group">
-        <input type="hidden" name="id" value="${category.categoryId}">
-        <label for="categoryName">Ten danh muc</label>
-        <input type="text" class="form-control" id="categoryName" name="categoryName" value="${category.categoryName}">
+        <input type="hidden" name="id" value="${user.id}">
+        <label for="name">name: </label>
+        <input type="text" class="form-control" id="name" name="name" value="${user.name}">
     </div>
     <div class="form-group">
-        <label for="Active">Status </label>
-        <input type="radio" id="Active" name="categoryStatus" value="true" ${category.categoryStatus ? "checked" : ""}>
-        <label for="Active">Active</label>
-        <input type="radio" id="IsActive" name="categoryStatus" value="false" ${!category.categoryStatus ? "checked" : ""} >
-        <label for="IsActive">InActive</label><br>
+        <label for="email">email: </label>
+        <input type="text" class="form-control" id="email" name="email" value="${user.email}">
+    </div>
+    <div class="form-group">
+        <label for="country">country: </label>
+        <input type="text" class="form-control" id="country" name="country" value="${user.country}">
     </div>
     <button type="submit" class="btn btn-primary" value="edit" name="action">Edit</button>
 </form>

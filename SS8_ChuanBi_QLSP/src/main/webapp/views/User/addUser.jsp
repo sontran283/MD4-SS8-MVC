@@ -19,15 +19,16 @@
 <h1 class="text-center text-danger">Thêm mới danh muc </h1>
 <form action="<%=request.getContextPath()%>/user" method="POST">
     <div class="form-group">
-        <label for="categoryName">Ten danh muc</label>
-        <input type="text" class="form-control" id="categoryName" name="categoryName">
+        <label for="name">name: </label>
+        <input type="text" class="form-control" id="name" name="name">
     </div>
     <div class="form-group">
-        <label for="Active">Status </label>
-        <input type="radio" id="Active" name="categoryStatus" checked value="true">
-        <label for="Active">Active</label>
-        <input type="radio" id="IsActive" name="categoryStatus" value="false">
-        <label for="IsActive">InActive</label><br>
+        <label for="email">email: </label>
+        <input type="text" class="form-control" id="email" name="email">
+    </div>
+    <div class="form-group">
+        <label for="country">country: </label>
+        <input type="text" class="form-control" id="country" name="country">
     </div>
     <button type="submit" class="btn btn-primary">Add</button>
 </form>

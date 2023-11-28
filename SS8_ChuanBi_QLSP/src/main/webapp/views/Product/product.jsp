@@ -69,12 +69,35 @@
         background-color: #207cca;
     }
 
+    button {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+
+    button a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    button:hover {
+        background-color: #45a049;
+    }
 </style>
 
 <body>
 <h2>Product</h2>
 <p>
-    <a href="product?action=add">Thêm mới sản phẩm</a>
+    <button><a href="product?action=add">Thêm mới sản phẩm</a></button>
+    <button><a href="/index.jsp">Back Home</a></button>
 </p>
 <table border="1" cellspacing="0">
     <tr>

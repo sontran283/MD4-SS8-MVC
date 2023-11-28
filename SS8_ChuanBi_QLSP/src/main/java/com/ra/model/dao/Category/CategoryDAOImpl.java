@@ -16,13 +16,8 @@ public class CategoryDAOImpl implements CategoryDAO {
         Connection connection = null;
         List<Category> categories = new ArrayList<>();
         try {
-            // mở kết nối
             connection = ConnectionDB.openConnection();
-            // PreparedStatement đựng các câu lệnh truy vấn
             PreparedStatement pstm = connection.prepareStatement("SELECT * FROM category");
-            // thực thi PreparedStatement
-            // executeQuery- thực thi với câu lệnh select
-            // executeUpdate- dùng với trường hợp thay đổi dữ liệu
             ResultSet resultSet = pstm.executeQuery();
             while (resultSet.next()) {
                 Category category = new Category();
