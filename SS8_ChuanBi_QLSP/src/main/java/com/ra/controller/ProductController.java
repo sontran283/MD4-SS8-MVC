@@ -22,13 +22,13 @@ public class ProductController extends HttpServlet {
         } else {
             switch (action) {
                 case "add":
-                    response.sendRedirect("views/add_product.jsp");
+                    response.sendRedirect("views/Product/addProduct.jsp");
                     break;
                 case "edit":
                     int idEdit = Integer.parseInt(request.getParameter("id"));
                     Product product = productService.findById(idEdit);
                     request.setAttribute("product", product);
-                    request.getRequestDispatcher("views/edit_student.jsp").forward(request, response);
+                    request.getRequestDispatcher("views/Product/editProduct.jsp").forward(request, response);
                     break;
                 case "delete":
                     int idDelete = Integer.parseInt(request.getParameter("id"));
@@ -50,6 +50,6 @@ public class ProductController extends HttpServlet {
     public void showProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Product> list = productService.findAll();
         request.setAttribute("list_product", list);
-        request.getRequestDispatcher("views/product.jsp").forward(request, response);
+        request.getRequestDispatcher("views/Product/product.jsp").forward(request, response);
     }
 }

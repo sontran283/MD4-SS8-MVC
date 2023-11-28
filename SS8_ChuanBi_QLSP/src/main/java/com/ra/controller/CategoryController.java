@@ -23,13 +23,13 @@ public class CategoryController extends HttpServlet {
             switch (action) {
                 case "add":
                     // chuyen den trang add
-                    response.sendRedirect("views/addCategory.jsp");
+                    response.sendRedirect("views/Category/addCategory.jsp");
                     break;
                 case "edit":
                     int idEdit = Integer.parseInt(request.getParameter("id"));
                     Category category = categoryService.findById(idEdit);
                     request.setAttribute("category", category);
-                    request.getRequestDispatcher("views/editCategory.jsp").forward(request, response);
+                    request.getRequestDispatcher("views/Category/editCategory.jsp").forward(request, response);
                     break;
                 case "delete":
                     int idDelete = Integer.parseInt(request.getParameter("id"));
@@ -55,7 +55,7 @@ public class CategoryController extends HttpServlet {
             if (categoryService.saveOrUpdate(category, null)) {
                 showListCategory(request, response);
             } else {
-                response.sendRedirect("views/addCategory.jsp?err");
+                response.sendRedirect("views/Category/addCategory.jsp?err");
             }
         }
         if (action.equals("edit")) {
@@ -71,13 +71,13 @@ public class CategoryController extends HttpServlet {
         if (categoryService.saveOrUpdate(category, idEdit)) {
             showListCategory(request, response);
         } else {
-            response.sendRedirect("views/addCategory.jsp");
+            response.sendRedirect("views/Category/addCategory.jsp");
         }
     }
 
     public void showListCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Category> list = categoryService.findAll();
         request.setAttribute("list", list);
-        request.getRequestDispatcher("views/category.jsp").forward(request, response);
+        request.getRequestDispatcher("views/Category/category.jsp").forward(request, response);
     }
 }

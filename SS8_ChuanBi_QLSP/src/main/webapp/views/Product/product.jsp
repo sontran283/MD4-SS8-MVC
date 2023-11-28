@@ -74,7 +74,7 @@
 <body>
 <h2>Product</h2>
 <p>
-    <a href="product?action=add">Thêm mới san pham</a>
+    <a href="product?action=add">Thêm mới sản phẩm</a>
 </p>
 <table border="1" cellspacing="0">
     <tr>
@@ -91,8 +91,7 @@
             <td>${item.price}</td>
             <td>${item.category.categoryName}</td>
             <td><a href="/product?action=edit&id=${item.id}">Edit</a></td>
-            <td><a href="/product?action=delete&id=${item.id}"
-                   onclick="return confirm('Are you sure?')">Delete</a>
+            <td><a href="/product?action=delete&id=${item.id}" onclick="return confirm('Are you sure?')">Delete</a>
             </td>
         </tr>
     </c:forEach>

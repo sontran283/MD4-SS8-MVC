@@ -16,7 +16,7 @@ public class UserController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.sendRedirect("views/add_user.jsp");
+        response.sendRedirect("views/User/addUser.jsp");
     }
 
     @Override
@@ -33,6 +33,6 @@ public class UserController extends HttpServlet {
     public void showListUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<User> listUser = userService.findAll();
         request.setAttribute("list_user", listUser);
-        request.getRequestDispatcher("views/list_user.jsp").forward(request, response);
+        request.getRequestDispatcher("views/User/list_user.jsp").forward(request, response);
     }
 }
