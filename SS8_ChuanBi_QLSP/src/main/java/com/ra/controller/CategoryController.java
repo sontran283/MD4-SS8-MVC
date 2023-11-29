@@ -22,7 +22,6 @@ public class CategoryController extends HttpServlet {
         } else {
             switch (action) {
                 case "add":
-                    // chuyen den trang add
                     response.sendRedirect("views/Category/addCategory.jsp");
                     break;
                 case "edit":
@@ -48,7 +47,6 @@ public class CategoryController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String action = request.getParameter("action");
         if (action == null) {
-            // lay giu lieu
             Category category = new Category();
             category.setCategoryName(request.getParameter("categoryName"));
             category.setCategoryStatus(Boolean.parseBoolean(request.getParameter("categoryStatus")));
@@ -64,10 +62,11 @@ public class CategoryController extends HttpServlet {
     }
 
     private void editCategoryPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        int idEdit = Integer.parseInt(request.getParameter("id"));
+        int idEdit = Integer.parseInt(request.getParameter("categoryId"));
         String name = request.getParameter("categoryName");
         boolean status = Boolean.parseBoolean(request.getParameter("categoryStatus"));
-        Category category = new Category(idEdit, name, status);
+        int p_quantity = Integer.parseInt(request.getParameter("p_quantity"));
+        Category category = new Category(idEdit, name, status, p_quantity);
         if (categoryService.saveOrUpdate(category, idEdit)) {
             showListCategory(request, response);
         } else {

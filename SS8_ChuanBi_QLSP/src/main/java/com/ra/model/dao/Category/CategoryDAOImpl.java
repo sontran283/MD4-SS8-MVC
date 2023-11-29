@@ -24,6 +24,7 @@ public class CategoryDAOImpl implements CategoryDAO {
                 category.setCategoryId(resultSet.getInt("id"));
                 category.setCategoryName(resultSet.getString("name"));
                 category.setCategoryStatus(resultSet.getBoolean("status"));
+                category.setP_quantity(resultSet.getInt("p_quantity"));
                 categories.add(category);
             }
         } catch (SQLException e) {
@@ -41,30 +42,31 @@ public class CategoryDAOImpl implements CategoryDAO {
 
     @Override
     public Category findById(Integer integer) {
-        Connection c = null;
+        Connection connection = null;
         Category category = null;
         try {
-            c = ConnectionDB.openConnection();
-            c.setAutoCommit(false);
-            PreparedStatement ps = c.prepareStatement("SELECT * FROM category WHERE id = ?");
-            ps.setInt(1, integer);
-            ResultSet resultSet = ps.executeQuery();
+            connection = ConnectionDB.openConnection();
+            connection.setAutoCommit(false);
+            PreparedStatement pstm = connection.prepareStatement("SELECT * FROM category WHERE id = ?");
+            pstm.setInt(1, integer);
+            ResultSet resultSet = pstm.executeQuery();
             if (resultSet.next()) {
                 category = new Category(
                         resultSet.getInt("id"),
                         resultSet.getString("name"),
-                        resultSet.getBoolean("status"));
+                        resultSet.getBoolean("status"),
+                        resultSet.getInt("p_quantity"));
             }
-            c.commit();
+            connection.commit();
         } catch (SQLException e) {
             try {
-                c.rollback();
+                connection.rollback();
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
             throw new RuntimeException(e);
         } finally {
-            ConnectionDB.closeConnection(c);
+            ConnectionDB.closeConnection(connection);
         }
         return category;
     }
@@ -75,20 +77,22 @@ public class CategoryDAOImpl implements CategoryDAO {
         try {
             connection = ConnectionDB.openConnection();
             if (id == null) {
-                String sql = "INSERT INTO category(name,status) VALUES (?,?)";
+                String sql = "INSERT INTO category(name,status,p_quantity) VALUES (?,?,?)";
                 PreparedStatement pstm = connection.prepareStatement(sql);
                 pstm.setString(1, category.getCategoryName());
                 pstm.setBoolean(2, category.getCategoryStatus());
+                pstm.setInt(3, category.getP_quantity());
                 int check = pstm.executeUpdate();
                 if (check > 0) {
                     return true;
                 }
             } else {
-                String sql = "UPDATE category SET name =?, status =? WHERE (id = ?)";
+                String sql = "UPDATE category SET name =?, status =?, p_quantity = ? WHERE (id = ?)";
                 PreparedStatement pstm = connection.prepareStatement(sql);
                 pstm.setString(1, category.getCategoryName());
                 pstm.setBoolean(2, category.getCategoryStatus());
-                pstm.setInt(3, id);
+                pstm.setInt(3, category.getP_quantity());
+                pstm.setInt(4, id);
                 int check = pstm.executeUpdate();
                 if (check > 0) {
                     return true;

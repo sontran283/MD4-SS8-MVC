@@ -105,6 +105,7 @@
         <td>ID</td>
         <td>Name</td>
         <td>Status</td>
+        <td>P_Quantity</td>
         <td colspan="2">Action</td>
     </tr>
     <c:forEach items='${list}' var="item" varStatus="loop">
@@ -113,8 +114,10 @@
             <td>${item.categoryId}</td>
             <td>${item.categoryName}</td>
             <td>${item.categoryStatus ? "Active" : "Close"}</td>
+            <td>${item.p_quantity}</td>
             <td><a href="/danh_muc?action=edit&id=${item.categoryId}">Edit</a></td>
-            <td><a href="/danh_muc?action=delete&id=${item.categoryId}" onclick="return confirm('Are you sure?')">Delete</a>
+            <td><a href="/danh_muc?action=delete&id=${item.categoryId}"
+                   onclick="return confirm('Are you sure?')">Delete</a>
             </td>
         </tr>
     </c:forEach>

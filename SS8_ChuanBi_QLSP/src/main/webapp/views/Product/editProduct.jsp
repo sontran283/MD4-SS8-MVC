@@ -17,10 +17,14 @@
 <p>
     <a href="/product">Back to customer list</a>
 </p>
-<h1 class="text-center text-danger">Thêm mới danh muc </h1>
+<h1 class="text-center text-danger">Sửa sản phẩm</h1>
 <form action="<%=request.getContextPath()%>/product" method="POST">
+    <input type="hidden" name="action" value="edit">
     <div class="form-group">
-        <input type="hidden" name="id" value="${product.id}">
+        <label for="id">id: </label>
+        <input type="text" class="form-control" id="id" name="id" value="${product.id}" readonly>
+    </div>
+    <div class="form-group">
         <label for="name">name: </label>
         <input type="text" class="form-control" id="name" name="name" value="${product.name}">
     </div>
@@ -36,7 +40,12 @@
             </c:forEach>
         </select>
     </div>
-    <button type="submit" class="btn btn-primary" value="edit" name="action">Add</button>
+    <div class="form-group">
+        <label for="p_quantity">p_quantity: </label>
+        <input type="text" class="form-control" id="p_quantity" name="p_quantity" value="${product.category.p_quantity} "
+               readonly>
+    </div>
+    <button type="submit" class="btn btn-primary">Edit</button>
 </form>
 </body>
 </html>

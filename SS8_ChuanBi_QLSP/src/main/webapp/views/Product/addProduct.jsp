@@ -15,9 +15,9 @@
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <body>
 <p>
-    <a href="/product">Back to customer list</a>
+    <a href="product">Back to customer list</a>
 </p>
-<h1 class="text-center text-danger">Thêm mới danh muc </h1>
+<h1 class="text-center text-danger">Thêm mới sản phẩm</h1>
 <form action="<%=request.getContextPath()%>/product" method="POST">
     <div class="form-group">
         <label for="name">name: </label>

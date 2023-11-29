@@ -18,8 +18,12 @@
 </p>
 <h1 class="text-center text-danger">Sửa danh muc </h1>
 <form action="<%=request.getContextPath()%>/danh_muc" method="POST">
+    <input type="hidden" name="action" value="edit">
     <div class="form-group">
-        <input type="hidden" name="id" value="${category.categoryId}">
+        <label for="categoryId">id: </label>
+        <input type="text" class="form-control" id="categoryId" name="categoryId" value="${category.categoryId}" readonly>
+    </div>
+    <div class="form-group">
         <label for="categoryName">Ten danh muc</label>
         <input type="text" class="form-control" id="categoryName" name="categoryName" value="${category.categoryName}">
     </div>
@@ -29,6 +33,10 @@
         <label for="Active">Active</label>
         <input type="radio" id="IsActive" name="categoryStatus" value="false" ${!category.categoryStatus ? "checked" : ""} >
         <label for="IsActive">InActive</label><br>
+    </div>
+    <div class="form-group">
+        <label for="p_quantity">p_quantity: </label>
+        <input type="text" class="form-control" id="p_quantity" name="p_quantity" value="${category.p_quantity}" readonly>
     </div>
     <button type="submit" class="btn btn-primary" value="edit" name="action">Edit</button>
 </form>

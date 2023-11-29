@@ -26,7 +26,6 @@ public class ProductController extends HttpServlet {
         } else {
             switch (action) {
                 case "add":
-                    // response.sendRedirect("views/Product/addProduct.jsp");
                     List<Category> categories = categoryService.findAll();
                     request.setAttribute("list_category", categories);
                     request.getRequestDispatcher("views/Product/addProduct.jsp").forward(request, response);
@@ -69,8 +68,7 @@ public class ProductController extends HttpServlet {
             } else {
                 response.sendRedirect("views/Product/addProduct.jsp");
             }
-        }
-        if ("edit".equals(action)) {
+        }else {
             editProductPost(request, response);
         }
     }
@@ -80,20 +78,16 @@ public class ProductController extends HttpServlet {
         String name = request.getParameter("name");
         float price = Float.parseFloat(request.getParameter("price"));
 
-        int categoryId = Integer.parseInt(request.getParameter("categoryId"));
-        String categoryName = request.getParameter("categoryName");
-        boolean categoryStatus = Boolean.parseBoolean(request.getParameter("categoryStatus"));
+        Category category = categoryService.findById(Integer.valueOf(request.getParameter("categoryId")));
 
-        Category category = new Category(categoryId, categoryName, categoryStatus);
         Product product = new Product(idEdit, name, price, category);
-
+        System.out.println(product);
         if (productService.saveOrUpdate(product, idEdit)) {
             showListProduct(request, response);
         } else {
             response.sendRedirect("views/Product/editProduct.jsp");
         }
     }
-
 
     public void showListProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Product> list = productService.findAll();

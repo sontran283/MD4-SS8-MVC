@@ -6,10 +6,7 @@ import com.ra.model.entity.Category;
 import com.ra.model.entity.Product;
 import com.ra.util.ConnectionDB;
 
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,31 +73,36 @@ public class ProductDAOImpl implements ProductDAO {
         connection = ConnectionDB.openConnection();
         boolean check = false;
         try {
-            connection.setAutoCommit(false);
-            CallableStatement callableStatement;
             if (id == null) {
-                callableStatement = connection.prepareCall("{CALL ADD_PRODUCT(?,?,?)}");
+                connection.setAutoCommit(false);
+                CallableStatement callableStatement1 = connection.prepareCall("{CALL ADD_PRODUCT(?,?,?)}");
+                callableStatement1.setString(1, product.getName());
+                callableStatement1.setFloat(2, product.getPrice());
+                callableStatement1.setInt(3, product.getCategory().getCategoryId());
+                int check1 = callableStatement1.executeUpdate();
+
+                String sql = "UPDATE category SET p_quantity = p_quantity + 1 WHERE id = ?";
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.setInt(1, product.getCategory().getCategoryId());
+                int check2 = preparedStatement.executeUpdate();
+                if (check1 > 0 && check2 > 0) {
+                    connection.commit();
+                    check = true;
+                } else {
+                    connection.rollback();
+                }
+            } else {
+                CallableStatement callableStatement = connection.prepareCall("{CALL UPDATE_PRODUCT(?,?,?,?)}");
                 callableStatement.setString(1, product.getName());
                 callableStatement.setFloat(2, product.getPrice());
                 callableStatement.setInt(3, product.getCategory().getCategoryId());
-            } else {
-                callableStatement = connection.prepareCall("{CALL UPDATE_PRODUCT(?,?,?,?)}");
-                callableStatement.setInt(1, id);
-                callableStatement.setString(2, product.getName());
-                callableStatement.setFloat(3, product.getPrice());
-                callableStatement.setInt(4, product.getCategory().getCategoryId());
-            }
-            int check1 = callableStatement.executeUpdate();
-            if (check1 > 0) {
-                check = true;
-                connection.commit();
+                callableStatement.setInt(4, id);
+                int check3 = callableStatement.executeUpdate();
+                if (check3 > 0) {
+                    return true;
+                }
             }
         } catch (SQLException e) {
-            try {
-                connection.rollback();
-            } catch (SQLException ex) {
-                throw new RuntimeException(ex);
-            }
             throw new RuntimeException(e);
         } finally {
             ConnectionDB.closeConnection(connection);
